@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧠 StudyMate Pro - AI-Powered Learning Assistant</title>
+    <meta name="description" content="StudyMate Pro: Multi-AI study assistant with PDF processing, ChatGPT-like interface, and structured academic answers">
+    <meta name="keywords" content="AI, study assistant, PDF processing, ChatGPT, Gemini, education, learning">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+    
+    <!-- Open Graph meta tags for social sharing -->
+    <meta property="og:title" content="StudyMate Pro - AI Learning Assistant">
+    <meta property="og:description" content="Transform your learning with multi-AI assistance, PDF processing, and structured academic answers">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://nanimathala.github.io/hackthon/">
+    
+    <!-- CSS Styles -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #4facfe 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: #333;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+            animation: fadeInDown 1s ease-out;
+        }
+        
+        .logo {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: bounce 2s infinite;
+        }
+        
+        .title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            font-weight: 400;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+        
+        /* Main Card */
+        .main-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+        
+        /* Features Grid */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .feature {
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            border-radius: 15px;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease-out calc(0.6s + var(--delay)) both;
+        }
+        
+        .feature:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.15);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature h3 {
+            color: #4a5568;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .feature p {
+            color: #718096;
+            line-height: 1.6;
+        }
+        
+        /* CTA Buttons */
+        .cta-section {
+            text-align: center;
+            margin: 3rem 0;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.9);
+            color: #4a5568;
+            border: 2px solid #e2e8f0;
+        }
+        
+        .btn-secondary:hover {
+            background: white;
+            border-color: #667eea;
+            color: #667eea;
+            transform: translateY(-3px);
+        }
+        
+        .btn-github {
+            background: #24292e;
+            color: white;
+        }
+        
+        .btn-github:hover {
+            background: #1a1e22;
+            transform: translateY(-3px);
+        }
+        
+        /* Demo Section */
+        .demo-section {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 3rem 0;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .demo-accounts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .demo-account {
+            background: white;
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+        }
+        
+        /* Tech Stack */
+        .tech-stack {
+            margin: 3rem 0;
+            text-align: center;
+        }
+        
+        .tech-icons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+        
+        .tech-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .tech-icon:hover {
+            transform: scale(1.05);
+            background: white;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding: 2rem;
+            color: white;
+            opacity: 0.8;
+        }
+        
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2.5rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .main-card {
+                padding: 2rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+        
+        /* Status Indicator */
+        .status-indicator {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(34, 197, 94, 0.9);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3);
+            z-index: 1000;
+            animation: fadeInDown 1s ease-out 2s both;
+        }
+        
+        .status-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+            }
+        }
+        
+        /* Set animation delays for features */
+        .feature:nth-child(1) { --delay: 0s; }
+        .feature:nth-child(2) { --delay: 0.1s; }
+        .feature:nth-child(3) { --delay: 0.2s; }
+        .feature:nth-child(4) { --delay: 0.3s; }
+    </style>
+</head>
+<body>
+    <!-- Status Indicator -->
+    <div class="status-indicator">
+        <span class="status-dot"></span>
+        Live & Ready!
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">🧠</div>
+            <h1 class="title">StudyMate Pro</h1>
+            <p class="subtitle">Your AI-Powered Learning Companion</p>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-card">
+            <!-- Introduction -->
+            <section class="intro">
+                <h2 style="text-align: center; color: #4a5568; margin-bottom: 1.5rem; font-size: 2rem;">
+                    Transform Your Learning with AI
+                </h2>
+                <p style="text-align: center; color: #718096; font-size: 1.1rem; line-height: 1.7; max-width: 600px; margin: 0 auto;">
+                    StudyMate Pro combines the power of multiple AI models including OpenAI GPT, Google Gemini, and IBM Granite 
+                    to provide intelligent PDF analysis, structured academic answers, and personalized learning assistance.
+                </p>
+            </section>
+
+            <!-- Features -->
+            <section class="features">
+                <div class="feature">
+                    <div class="feature-icon">🤖</div>
+                    <h3>Multi-AI Integration</h3>
+                    <p>Harness the power of OpenAI GPT-3.5, Google Gemini, and IBM Granite for comprehensive answers and diverse perspectives.</p>
+                </div>
+                
+                <div class="feature">
+                    <div class="feature-icon">📄</div>
+                    <h3>Smart PDF Processing</h3>
+                    <p>Upload textbooks, research papers, or study materials and get instant AI-powered analysis and Q&A capabilities.</p>
+                </div>
+                
+                <div class="feature">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Academic Structured Answers</h3>
+                    <p>Get properly formatted 7-mark and 14-mark answers following academic standards for examinations and assignments.</p>
+                </div>
+                
+                <div class="feature">
+                    <div class="feature-icon">💬</div>
+                    <h3>ChatGPT-like Interface</h3>
+                    <p>Enjoy a modern, intuitive chat interface with conversation history, grammar checking, and real-time responses.</p>
+                </div>
+            </section>
+
+            <!-- CTA Section -->
+            <section class="cta-section">
+                <h2 style="color: #4a5568; margin-bottom: 1rem;">Ready to Enhance Your Learning?</h2>
+                <p style="color: #718096; margin-bottom: 2rem;">Join thousands of students already using AI to accelerate their studies</p>
+                
+                <div class="cta-buttons">
+                    <a href="#" class="btn btn-primary" onclick="launchApp()">
+                        🚀 Launch StudyMate Pro
+                    </a>
+                    <a href="https://github.com/Nanimathala/hackthon" class="btn btn-github" target="_blank">
+                        📱 View on GitHub
+                    </a>
+                    <a href="#demo" class="btn btn-secondary">
+                        🎮 Try Demo
+                    </a>
+                </div>
+            </section>
+
+            <!-- Demo Section -->
+            <section class="demo-section" id="demo">
+                <h3 style="text-align: center; color: #4a5568; margin-bottom: 1rem;">
+                    🎯 Demo Accounts - Start Learning Immediately
+                </h3>
+                <p style="text-align: center; color: #718096; margin-bottom: 1rem;">
+                    Use these demo accounts to explore StudyMate Pro's features instantly
+                </p>
+                
+                <div class="demo-accounts">
+                    <div class="demo-account">
+                        <strong>👨‍💻 Demo User</strong><br>
+                        Username: <code>demo</code><br>
+                        Password: <code>demo123</code>
+                    </div>
+                    <div class="demo-account">
+                        <strong>👩‍🎓 Student Account</strong><br>
+                        Username: <code>student</code><br>
+                        Password: <code>student123</code>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tech Stack -->
+            <section class="tech-stack">
+                <h3 style="color: #4a5568; margin-bottom: 1rem;">Powered By Leading Technologies</h3>
+                <div class="tech-icons">
+                    <div class="tech-icon">
+                        <span style="font-size: 2rem;">🧠</span>
+                        <small>OpenAI GPT</small>
+                    </div>
+                    <div class="tech-icon">
+                        <span style="font-size: 2rem;">🔮</span>
+                        <small>Google Gemini</small>
+                    </div>
+                    <div class="tech-icon">
+                        <span style="font-size: 2rem;">💎</span>
+                        <small>IBM Granite</small>
+                    </div>
+                    <div class="tech-icon">
+                        <span style="font-size: 2rem;">🐍</span>
+                        <small>Python</small>
+                    </div>
+                    <div class="tech-icon">
+                        <span style="font-size: 2rem;">⚡</span>
+                        <small>Streamlit</small>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Installation Guide -->
+            <section style="background: #f7fafc; padding: 2rem; border-radius: 15px; margin: 2rem 0;">
+                <h3 style="color: #4a5568; text-align: center; margin-bottom: 1rem;">
+                    🛠️ Local Installation Guide
+                </h3>
+                <div style="background: #2d3748; color: #e2e8f0; padding: 1.5rem; border-radius: 10px; font-family: 'Courier New', monospace; overflow-x: auto;">
+                    <pre style="margin: 0; white-space: pre-wrap;">
+# Clone the repository
+git clone https://github.com/Nanimathala/hackthon.git
+cd hackthon
+
+# Create virtual environment
+python -m venv .venv
+.venv\Scripts\activate  # Windows
+source .venv/bin/activate  # macOS/Linux
+
+# Install dependencies
+pip install -r requirements_multi_ai.txt
+
+# Run the application
+streamlit run app_multi_ai.py
+
+# Access at: http://localhost:8501
+                    </pre>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>© 2025 StudyMate Pro - Empowering Learning with AI</p>
+            <p>Made with ❤️ for students worldwide</p>
+        </footer>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        function launchApp() {
+            // Try to open local instance first
+            const localUrl = 'http://localhost:8501';
+            
+            // Check if local instance is running
+            fetch(localUrl)
+                .then(response => {
+                    if (response.ok) {
+                        window.open(localUrl, '_blank');
+                    } else {
+                        showAppLaunchInstructions();
+                    }
+                })
+                .catch(() => {
+                    showAppLaunchInstructions();
+                });
+        }
+        
+        function showAppLaunchInstructions() {
+            alert(`🚀 To launch StudyMate Pro locally:
+
+1. Clone the GitHub repository
+2. Install dependencies: pip install -r requirements_multi_ai.txt
+3. Run: streamlit run app_multi_ai.py
+4. Access at: http://localhost:8501
+
+Or visit the GitHub repository for detailed instructions!`);
+            
+            // Fallback: Open GitHub repository
+            window.open('https://github.com/Nanimathala/hackthon', '_blank');
+        }
+        
+        // Add smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Add loading animation for external links
+        document.querySelectorAll('a[target="_blank"]').forEach(link => {
+            link.addEventListener('click', function() {
+                this.style.opacity = '0.7';
+                setTimeout(() => {
+                    this.style.opacity = '1';
+                }, 1000);
+            });
+        });
+    </script>
+</body>
+</html>
