@@ -4,7 +4,7 @@
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.28+-red.svg)](https://streamlit.io)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-**StudyMate Pro** is an advanced AI-powered study assistant that helps students analyze PDF documents and get structured answers using multiple AI models including OpenAI GPT, Google Gemini, and IBM Granite.
+**StudyMate Pro** is an advanced AI-powered study assistant that helps students analyze PDF documents and get structured answers using multiple AI models including OpenAI GPT, Google Gemini, and IBM Granite.to open the app use this  link   http://localhost:8501
 
 ## ✨ Features
 
