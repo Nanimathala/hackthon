@@ -1,0 +1,34 @@
+# StudyMate Pro - Multi-AI Requirements
+# Install with: pip install -r requirements_multi_ai.txt
+
+# Core Streamlit and PDF processing
+streamlit>=1.28.0
+pymupdf>=1.23.0
+
+# AI and ML libraries
+sentence-transformers>=2.2.2
+faiss-cpu>=1.7.4
+numpy>=1.24.0
+transformers>=4.35.0
+torch>=2.0.0
+accelerate>=0.24.0
+
+# Multi-AI Integration
+openai>=1.3.0
+google-generativeai>=0.3.0
+
+# Text processing and spell checking
+pyspellchecker>=0.7.2
+textblob>=0.17.1
+
+# Configuration management
+python-dotenv>=1.0.0
+
+# Additional utilities
+regex>=2023.10.3
+requests>=2.31.0
+typing-extensions>=4.8.0
+
+# Optional GPU acceleration (uncomment if you have NVIDIA GPU)
+# torch-audio>=2.0.0
+# torch-vision>=0.15.0
